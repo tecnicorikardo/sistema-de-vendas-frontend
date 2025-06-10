@@ -8,6 +8,34 @@ import { Label } from '@/components/ui/label';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { ShoppingCart, Lock } from 'lucide-react';
 
+const styles = {
+  container: {
+    minHeight: '100vh',
+    width: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#1a1a1a',
+    position: 'relative',
+  },
+  gradient: {
+    position: 'absolute',
+    inset: 0,
+    background: 'linear-gradient(135deg, rgba(37, 99, 235, 0.7), rgba(147, 51, 234, 0.7))',
+    zIndex: 1,
+  },
+  card: {
+    width: '100%',
+    maxWidth: '440px',
+    backgroundColor: 'white',
+    borderRadius: '12px',
+    boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
+    position: 'relative',
+    zIndex: 2,
+    margin: '16px',
+  }
+};
+
 export default function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -34,92 +62,200 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#1a1a1a]">
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-600 to-purple-700 opacity-50" />
+    <div style={styles.container}>
+      <div style={styles.gradient} />
       
-      <Card className="w-full max-w-md shadow-2xl bg-white/95 backdrop-blur-sm relative z-10 mx-4">
-        <CardHeader className="space-y-1 text-center pb-8">
-          <div className="flex justify-center mb-4">
-            <div className="bg-gradient-to-r from-blue-600 to-purple-600 p-3 rounded-full shadow-xl">
-              <ShoppingCart className="h-8 w-8 text-white" />
+      <div style={styles.card}>
+        <div style={{ padding: '32px 24px' }}>
+          <div style={{ textAlign: 'center', marginBottom: '32px' }}>
+            <div style={{ 
+              display: 'inline-flex',
+              padding: '16px',
+              background: 'linear-gradient(135deg, #2563eb, #9333ea)',
+              borderRadius: '50%',
+              marginBottom: '24px',
+              boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)'
+            }}>
+              <ShoppingCart style={{ width: '32px', height: '32px', color: 'white' }} />
             </div>
+            <h1 style={{
+              fontSize: '32px',
+              fontWeight: 'bold',
+              background: 'linear-gradient(135deg, #2563eb, #9333ea)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              marginBottom: '8px'
+            }}>
+              Sistema de Vendas
+            </h1>
+            <p style={{ color: '#6b7280', fontSize: '18px' }}>
+              Faça login para acessar o sistema
+            </p>
           </div>
-          <CardTitle className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-            Sistema de Vendas
-          </CardTitle>
-          <CardDescription className="text-gray-500 text-lg">
-            Faça login para acessar o sistema
-          </CardDescription>
-        </CardHeader>
-        
-        <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-6">
+          
+          <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
             {error && (
-              <Alert variant="destructive" className="bg-red-50 border-red-200">
-                <AlertDescription className="text-red-600 font-medium">{error}</AlertDescription>
-              </Alert>
+              <div style={{ 
+                backgroundColor: '#fef2f2', 
+                borderColor: '#f87171',
+                borderWidth: '1px',
+                borderRadius: '6px',
+                padding: '12px',
+                color: '#dc2626'
+              }}>
+                {error}
+              </div>
             )}
             
-            <div className="space-y-2">
-              <Label htmlFor="username" className="text-gray-700 font-medium text-sm">
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+              <label 
+                htmlFor="username" 
+                style={{ 
+                  color: '#374151',
+                  fontSize: '14px',
+                  fontWeight: '500'
+                }}
+              >
                 Usuário
-              </Label>
-              <Input
+              </label>
+              <input
                 id="username"
                 type="text"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 placeholder="Digite seu usuário"
                 required
-                className="h-11 border-gray-300 focus:border-blue-500 focus:ring-blue-500 text-gray-900"
+                style={{
+                  width: '100%',
+                  height: '44px',
+                  padding: '8px 12px',
+                  borderRadius: '6px',
+                  border: '1px solid #d1d5db',
+                  fontSize: '16px',
+                  color: '#1f2937',
+                  outline: 'none',
+                  transition: 'border-color 0.2s, box-shadow 0.2s',
+                }}
               />
             </div>
             
-            <div className="space-y-2">
-              <Label htmlFor="password" className="text-gray-700 font-medium text-sm">
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+              <label 
+                htmlFor="password"
+                style={{ 
+                  color: '#374151',
+                  fontSize: '14px',
+                  fontWeight: '500'
+                }}
+              >
                 Senha
-              </Label>
-              <Input
+              </label>
+              <input
                 id="password"
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Digite sua senha"
                 required
-                className="h-11 border-gray-300 focus:border-blue-500 focus:ring-blue-500 text-gray-900"
+                style={{
+                  width: '100%',
+                  height: '44px',
+                  padding: '8px 12px',
+                  borderRadius: '6px',
+                  border: '1px solid #d1d5db',
+                  fontSize: '16px',
+                  color: '#1f2937',
+                  outline: 'none',
+                  transition: 'border-color 0.2s, box-shadow 0.2s',
+                }}
               />
             </div>
             
-            <Button 
+            <button 
               type="submit" 
-              className="w-full h-11 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-medium text-lg" 
               disabled={loading}
+              style={{
+                width: '100%',
+                height: '44px',
+                background: 'linear-gradient(135deg, #2563eb, #9333ea)',
+                color: 'white',
+                border: 'none',
+                borderRadius: '6px',
+                fontSize: '16px',
+                fontWeight: '500',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '8px',
+                transition: 'opacity 0.2s',
+                opacity: loading ? 0.7 : 1,
+              }}
             >
               {loading ? (
-                <div className="flex items-center justify-center">
-                  <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-3"></div>
-                  Entrando...
-                </div>
+                <>
+                  <div style={{
+                    width: '20px',
+                    height: '20px',
+                    border: '2px solid rgba(255,255,255,0.3)',
+                    borderTopColor: 'white',
+                    borderRadius: '50%',
+                    animation: 'spin 1s linear infinite',
+                  }} />
+                  <span>Entrando...</span>
+                </>
               ) : (
-                <div className="flex items-center justify-center">
-                  <Lock className="h-5 w-5 mr-2" />
-                  Entrar
-                </div>
+                <>
+                  <Lock style={{ width: '20px', height: '20px' }} />
+                  <span>Entrar</span>
+                </>
               )}
-            </Button>
+            </button>
           </form>
           
-          <div className="mt-8 text-center">
-            <div className="bg-gray-100 rounded-lg p-4 shadow-inner">
-              <p className="text-gray-600 font-medium mb-1">Credenciais de teste:</p>
-              <div className="space-y-1 text-sm">
-                <p>Usuário: <span className="font-mono bg-gray-200 px-2 py-0.5 rounded">admin</span></p>
-                <p>Senha: <span className="font-mono bg-gray-200 px-2 py-0.5 rounded">admin123</span></p>
-              </div>
+          <div style={{ 
+            marginTop: '32px',
+            backgroundColor: '#f3f4f6',
+            borderRadius: '8px',
+            padding: '16px',
+            textAlign: 'center'
+          }}>
+            <p style={{ 
+              color: '#4b5563',
+              fontWeight: '500',
+              marginBottom: '8px'
+            }}>
+              Credenciais de teste:
+            </p>
+            <div style={{ fontSize: '14px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
+              <p>
+                Usuário: 
+                <span style={{ 
+                  fontFamily: 'monospace',
+                  backgroundColor: '#e5e7eb',
+                  padding: '2px 6px',
+                  borderRadius: '4px',
+                  marginLeft: '4px'
+                }}>
+                  admin
+                </span>
+              </p>
+              <p>
+                Senha: 
+                <span style={{ 
+                  fontFamily: 'monospace',
+                  backgroundColor: '#e5e7eb',
+                  padding: '2px 6px',
+                  borderRadius: '4px',
+                  marginLeft: '4px'
+                }}>
+                  admin123
+                </span>
+              </p>
             </div>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
     </div>
   );
 }
