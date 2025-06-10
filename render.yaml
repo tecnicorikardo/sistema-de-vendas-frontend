@@ -7,17 +7,7 @@ services:
     envVars:
       - key: VITE_API_URL
         value: https://sistema-de-vendas-backend.onrender.com
-    headers:
-      - path: /*
-        name: Cache-Control
-        value: no-store, no-cache, must-revalidate
-      - path: /*
-        name: X-Frame-Options
-        value: DENY
-      - path: /*
-        name: X-Content-Type-Options
-        value: nosniff
     routes:
       - type: rewrite
-        source: /(.*)
+        source: /**
         destination: /index.html 
