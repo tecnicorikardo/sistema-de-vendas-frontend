@@ -25,4 +25,4 @@ services:
       - key: VITE_API_URL
         value: https://sistema-de-vendas-backend.onrender.com
       - key: NODE_VERSION
-        value: 18 
+        value: 18
