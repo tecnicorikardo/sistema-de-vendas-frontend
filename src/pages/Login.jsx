@@ -38,7 +38,8 @@ export default function Login() {
       alignItems: 'center',
       justifyContent: 'center',
       backgroundColor: '#1a1a1a',
-      padding: '16px'
+      padding: '16px',
+      border: '2px solid black'
     }}>
       <div style={{
         position: 'fixed',
@@ -47,7 +48,8 @@ export default function Login() {
         right: 0,
         bottom: 0,
         background: 'linear-gradient(135deg, rgba(37, 99, 235, 0.7), rgba(147, 51, 234, 0.7))',
-        zIndex: 1
+        zIndex: 1,
+        border: '2px solid black'
       }} />
       
       <div style={{
@@ -58,10 +60,18 @@ export default function Login() {
         boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
         position: 'relative',
         zIndex: 2,
-        overflow: 'hidden'
+        overflow: 'hidden',
+        border: '2px solid black'
       }}>
-        <div style={{ padding: '32px 24px' }}>
-          <div style={{ textAlign: 'center', marginBottom: '32px' }}>
+        <div style={{ 
+          padding: '32px 24px',
+          border: '2px solid black'
+        }}>
+          <div style={{ 
+            textAlign: 'center', 
+            marginBottom: '32px',
+            border: '2px solid black'
+          }}>
             <div style={{ 
               width: '64px',
               height: '64px',
@@ -70,7 +80,8 @@ export default function Login() {
               borderRadius: '50%',
               display: 'flex',
               alignItems: 'center',
-              justifyContent: 'center'
+              justifyContent: 'center',
+              border: '2px solid black'
             }}>
               <svg 
                 width="32" 
@@ -81,6 +92,7 @@ export default function Login() {
                 strokeWidth="2" 
                 strokeLinecap="round" 
                 strokeLinejoin="round"
+                style={{ border: '2px solid black' }}
               >
                 <circle cx="9" cy="21" r="1"/>
                 <circle cx="20" cy="21" r="1"/>
@@ -93,16 +105,26 @@ export default function Login() {
               marginBottom: '8px',
               background: 'linear-gradient(135deg, #2563eb, #9333ea)',
               WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent'
+              WebkitTextFillColor: 'transparent',
+              border: '2px solid black'
             }}>
               Sistema de Vendas
             </h1>
-            <p style={{ color: '#6b7280', fontSize: '18px' }}>
+            <p style={{ 
+              color: '#6b7280', 
+              fontSize: '18px',
+              border: '2px solid black'
+            }}>
               Faça login para acessar o sistema
             </p>
           </div>
           
-          <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+          <form onSubmit={handleSubmit} style={{ 
+            display: 'flex', 
+            flexDirection: 'column', 
+            gap: '24px',
+            border: '2px solid black'
+          }}>
             {error && (
               <div style={{ 
                 backgroundColor: '#fef2f2', 
@@ -110,19 +132,26 @@ export default function Login() {
                 borderWidth: '1px',
                 borderRadius: '6px',
                 padding: '12px',
-                color: '#dc2626'
+                color: '#dc2626',
+                border: '2px solid black'
               }}>
                 {error}
               </div>
             )}
             
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+            <div style={{ 
+              display: 'flex', 
+              flexDirection: 'column', 
+              gap: '8px',
+              border: '2px solid black'
+            }}>
               <label 
                 htmlFor="username" 
                 style={{ 
                   color: '#374151',
                   fontSize: '14px',
-                  fontWeight: '500'
+                  fontWeight: '500',
+                  border: '2px solid black'
                 }}
               >
                 Usuário
@@ -141,20 +170,26 @@ export default function Login() {
                   height: '44px',
                   padding: '8px 12px',
                   borderRadius: '6px',
-                  border: '1px solid #d1d5db',
+                  border: '2px solid black',
                   fontSize: '16px',
                   color: '#1f2937'
                 }}
               />
             </div>
             
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+            <div style={{ 
+              display: 'flex', 
+              flexDirection: 'column', 
+              gap: '8px',
+              border: '2px solid black'
+            }}>
               <label 
                 htmlFor="password"
                 style={{ 
                   color: '#374151',
                   fontSize: '14px',
-                  fontWeight: '500'
+                  fontWeight: '500',
+                  border: '2px solid black'
                 }}
               >
                 Senha
@@ -173,7 +208,7 @@ export default function Login() {
                   height: '44px',
                   padding: '8px 12px',
                   borderRadius: '6px',
-                  border: '1px solid #d1d5db',
+                  border: '2px solid black',
                   fontSize: '16px',
                   color: '#1f2937'
                 }}
@@ -190,7 +225,7 @@ export default function Login() {
                   ? '#9ca3af'
                   : 'linear-gradient(135deg, #2563eb, #9333ea)',
                 color: 'white',
-                border: 'none',
+                border: '2px solid black',
                 borderRadius: '6px',
                 fontSize: '16px',
                 fontWeight: '500',
@@ -211,7 +246,7 @@ export default function Login() {
                     borderRadius: '50%',
                     animation: 'spin 1s linear infinite'
                   }} />
-                  <span>Entrando...</span>
+                  <span style={{ border: '2px solid black' }}>Entrando...</span>
                 </>
               ) : (
                 <>
@@ -224,11 +259,12 @@ export default function Login() {
                     strokeWidth="2" 
                     strokeLinecap="round" 
                     strokeLinejoin="round"
+                    style={{ border: '2px solid black' }}
                   >
                     <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
                     <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
                   </svg>
-                  <span>Entrar</span>
+                  <span style={{ border: '2px solid black' }}>Entrar</span>
                 </>
               )}
             </button>
@@ -239,36 +275,46 @@ export default function Login() {
             backgroundColor: '#f3f4f6',
             borderRadius: '8px',
             padding: '16px',
-            textAlign: 'center'
+            textAlign: 'center',
+            border: '2px solid black'
           }}>
             <p style={{ 
               color: '#4b5563',
               fontWeight: '500',
-              marginBottom: '8px'
+              marginBottom: '8px',
+              border: '2px solid black'
             }}>
               Credenciais de teste:
             </p>
-            <div style={{ fontSize: '14px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
-              <p>
+            <div style={{ 
+              fontSize: '14px', 
+              display: 'flex', 
+              flexDirection: 'column', 
+              gap: '4px',
+              border: '2px solid black'
+            }}>
+              <p style={{ border: '2px solid black' }}>
                 Usuário: 
                 <span style={{ 
                   fontFamily: 'monospace',
                   backgroundColor: '#e5e7eb',
                   padding: '2px 6px',
                   borderRadius: '4px',
-                  marginLeft: '4px'
+                  marginLeft: '4px',
+                  border: '2px solid black'
                 }}>
                   admin
                 </span>
               </p>
-              <p>
+              <p style={{ border: '2px solid black' }}>
                 Senha: 
                 <span style={{ 
                   fontFamily: 'monospace',
                   backgroundColor: '#e5e7eb',
                   padding: '2px 6px',
                   borderRadius: '4px',
-                  marginLeft: '4px'
+                  marginLeft: '4px',
+                  border: '2px solid black'
                 }}>
                   admin123
                 </span>
