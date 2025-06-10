@@ -1,0 +1,29 @@
+services:
+  - type: web
+    name: sistema-de-vendas
+    env: python
+    plan: free
+    buildCommand: |
+      cd ../frontend && npm install --force && npm run build
+      cd ../backend
+    startCommand: gunicorn src.main:app
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11
+    buildFilter:
+      paths:
+        - ../frontend/
+        - ./
+    autoDeploy: true
+    rootDir: .
+  - type: static
+    name: sistema-de-vendas-frontend
+    buildCommand: npm install --force && npm run build
+    staticPublishPath: ./dist
+    envVars:
+      - key: VITE_API_URL
+        value: https://sistema-de-vendas-backend.onrender.com
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html 
