@@ -1,6 +1,8 @@
 // Configuração da API
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5001';
 
+console.log('API Base URL:', API_BASE_URL);
+
 // Instância do axios
 import axios from 'axios';
 
@@ -18,17 +20,37 @@ api.interceptors.request.use(
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
+    console.log('Request:', {
+      url: config.url,
+      method: config.method,
+      hasToken: !!token
+    });
     return config;
   },
   (error) => {
+    console.error('Request Error:', error);
     return Promise.reject(error);
   }
 );
 
 // Interceptor para tratar respostas
 api.interceptors.response.use(
-  (response) => response,
+  (response) => {
+    console.log('Response:', {
+      url: response.config.url,
+      status: response.status,
+      data: response.data
+    });
+    return response;
+  },
   (error) => {
+    console.error('Response Error:', {
+      url: error.config?.url,
+      status: error.response?.status,
+      data: error.response?.data,
+      message: error.message
+    });
+
     if (error.response?.status === 401) {
       localStorage.removeItem('token');
       localStorage.removeItem('user');
@@ -41,13 +63,23 @@ api.interceptors.response.use(
 // Serviços de autenticação
 export const authService = {
   login: async (username, password) => {
-    const response = await api.post('/auth/login', { username, password });
-    return response.data;
+    try {
+      const response = await api.post('/auth/login', { username, password });
+      return response.data;
+    } catch (error) {
+      console.error('Login Error:', error);
+      throw error;
+    }
   },
   
   getCurrentUser: async () => {
-    const response = await api.get('/auth/me');
-    return response.data;
+    try {
+      const response = await api.get('/auth/me');
+      return response.data;
+    } catch (error) {
+      console.error('Get Current User Error:', error);
+      throw error;
+    }
   },
 };
 
