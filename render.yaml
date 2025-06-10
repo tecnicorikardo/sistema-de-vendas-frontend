@@ -2,11 +2,11 @@ services:
   - type: web
     name: sistema-de-vendas-frontend
     env: static
-    buildCommand: npm install && npm run build
+    buildCommand: npm install --force && npm run build
     staticPublishPath: ./dist
     envVars:
       - key: VITE_API_URL
-        value: https://sistema-de-vendas.onrender.com
+        value: https://sistema-de-vendas-backend.onrender.com
     routes:
       - type: rewrite
         source: /*
