@@ -1,40 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Label } from '@/components/ui/label';
-import { Alert, AlertDescription } from '@/components/ui/alert';
-import { ShoppingCart, Lock } from 'lucide-react';
-
-const styles = {
-  container: {
-    minHeight: '100vh',
-    width: '100%',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#1a1a1a',
-    position: 'relative',
-  },
-  gradient: {
-    position: 'absolute',
-    inset: 0,
-    background: 'linear-gradient(135deg, rgba(37, 99, 235, 0.7), rgba(147, 51, 234, 0.7))',
-    zIndex: 1,
-  },
-  card: {
-    width: '100%',
-    maxWidth: '440px',
-    backgroundColor: 'white',
-    borderRadius: '12px',
-    boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
-    position: 'relative',
-    zIndex: 2,
-    margin: '16px',
-  }
-};
 
 export default function Login() {
   const [username, setUsername] = useState('');
@@ -50,41 +16,84 @@ export default function Login() {
     setError('');
     setLoading(true);
 
-    const result = await login(username, password);
-    
-    if (result.success) {
-      navigate('/');
-    } else {
-      setError(result.error);
+    try {
+      const result = await login(username, password);
+      if (result.success) {
+        navigate('/');
+      } else {
+        setError(result.error || 'Erro ao fazer login');
+      }
+    } catch (err) {
+      setError('Erro ao conectar com o servidor');
+    } finally {
+      setLoading(false);
     }
-    
-    setLoading(false);
   };
 
   return (
-    <div style={styles.container}>
-      <div style={styles.gradient} />
+    <div style={{
+      minHeight: '100vh',
+      width: '100%',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      backgroundColor: '#1a1a1a',
+      padding: '16px'
+    }}>
+      <div style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        background: 'linear-gradient(135deg, rgba(37, 99, 235, 0.7), rgba(147, 51, 234, 0.7))',
+        zIndex: 1
+      }} />
       
-      <div style={styles.card}>
+      <div style={{
+        width: '100%',
+        maxWidth: '440px',
+        backgroundColor: 'white',
+        borderRadius: '12px',
+        boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
+        position: 'relative',
+        zIndex: 2,
+        overflow: 'hidden'
+      }}>
         <div style={{ padding: '32px 24px' }}>
           <div style={{ textAlign: 'center', marginBottom: '32px' }}>
             <div style={{ 
-              display: 'inline-flex',
-              padding: '16px',
+              width: '64px',
+              height: '64px',
+              margin: '0 auto 24px',
               background: 'linear-gradient(135deg, #2563eb, #9333ea)',
               borderRadius: '50%',
-              marginBottom: '24px',
-              boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)'
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center'
             }}>
-              <ShoppingCart style={{ width: '32px', height: '32px', color: 'white' }} />
+              <svg 
+                width="32" 
+                height="32" 
+                viewBox="0 0 24 24" 
+                fill="none" 
+                stroke="white" 
+                strokeWidth="2" 
+                strokeLinecap="round" 
+                strokeLinejoin="round"
+              >
+                <circle cx="9" cy="21" r="1"/>
+                <circle cx="20" cy="21" r="1"/>
+                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+              </svg>
             </div>
             <h1 style={{
               fontSize: '32px',
               fontWeight: 'bold',
+              marginBottom: '8px',
               background: 'linear-gradient(135deg, #2563eb, #9333ea)',
               WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              marginBottom: '8px'
+              WebkitTextFillColor: 'transparent'
             }}>
               Sistema de Vendas
             </h1>
@@ -120,7 +129,9 @@ export default function Login() {
               </label>
               <input
                 id="username"
+                name="username"
                 type="text"
+                autoComplete="username"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 placeholder="Digite seu usuário"
@@ -132,9 +143,7 @@ export default function Login() {
                   borderRadius: '6px',
                   border: '1px solid #d1d5db',
                   fontSize: '16px',
-                  color: '#1f2937',
-                  outline: 'none',
-                  transition: 'border-color 0.2s, box-shadow 0.2s',
+                  color: '#1f2937'
                 }}
               />
             </div>
@@ -152,7 +161,9 @@ export default function Login() {
               </label>
               <input
                 id="password"
+                name="password"
                 type="password"
+                autoComplete="current-password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Digite sua senha"
@@ -164,9 +175,7 @@ export default function Login() {
                   borderRadius: '6px',
                   border: '1px solid #d1d5db',
                   fontSize: '16px',
-                  color: '#1f2937',
-                  outline: 'none',
-                  transition: 'border-color 0.2s, box-shadow 0.2s',
+                  color: '#1f2937'
                 }}
               />
             </div>
@@ -177,19 +186,19 @@ export default function Login() {
               style={{
                 width: '100%',
                 height: '44px',
-                background: 'linear-gradient(135deg, #2563eb, #9333ea)',
+                background: loading 
+                  ? '#9ca3af'
+                  : 'linear-gradient(135deg, #2563eb, #9333ea)',
                 color: 'white',
                 border: 'none',
                 borderRadius: '6px',
                 fontSize: '16px',
                 fontWeight: '500',
-                cursor: 'pointer',
+                cursor: loading ? 'not-allowed' : 'pointer',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                gap: '8px',
-                transition: 'opacity 0.2s',
-                opacity: loading ? 0.7 : 1,
+                gap: '8px'
               }}
             >
               {loading ? (
@@ -200,13 +209,25 @@ export default function Login() {
                     border: '2px solid rgba(255,255,255,0.3)',
                     borderTopColor: 'white',
                     borderRadius: '50%',
-                    animation: 'spin 1s linear infinite',
+                    animation: 'spin 1s linear infinite'
                   }} />
                   <span>Entrando...</span>
                 </>
               ) : (
                 <>
-                  <Lock style={{ width: '20px', height: '20px' }} />
+                  <svg 
+                    width="20" 
+                    height="20" 
+                    viewBox="0 0 24 24" 
+                    fill="none" 
+                    stroke="currentColor" 
+                    strokeWidth="2" 
+                    strokeLinecap="round" 
+                    strokeLinejoin="round"
+                  >
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                  </svg>
                   <span>Entrar</span>
                 </>
               )}
